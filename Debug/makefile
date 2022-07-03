@@ -66,7 +66,8 @@ stm32f1_irdecode.siz \
 
 
 # All Target
-all: main-build
+all:
+	+@$(MAKE) --no-print-directory main-build && $(MAKE) --no-print-directory post-build
 
 # Main-build Target
 main-build: stm32f1_irdecode.elf secondary-outputs
@@ -96,8 +97,12 @@ clean:
 	-$(RM) $(CC_DEPS)$(C++_DEPS)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(SECONDARY_FLASH)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS)$(CPP_DEPS) stm32f1_irdecode.elf
 	-@echo ' '
 
+post-build:
+	-objcopy -Iihex -Obinary  stm32f1_irdecode.hex stm32f1_irdecode.bin
+	-@echo ' '
+
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_SIZE)
 
-.PHONY: all clean dependents main-build
+.PHONY: all clean dependents main-build post-build
 
 -include ../makefile.targets
