@@ -2814,8 +2814,6 @@ Discarded input sections
                 0x0000000000000000        0xc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_reset_output_idle_state
                 0x0000000000000000        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .text.timer_set_ti1_ch123_xor
-                0x0000000000000000        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_set_ti1_ch1
                 0x0000000000000000        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_set_master_mode
@@ -2892,6 +2890,8 @@ Discarded input sections
                 0x0000000000000000        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_generate_event
                 0x0000000000000000        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .text.timer_get_counter
+                0x0000000000000000        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_set_counter
                 0x0000000000000000        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
  .text.timer_ic_disable
@@ -3451,7 +3451,7 @@ END GROUP
                 0x0000000020004c00                __Main_Stack_Limit = (__stack - __Main_Stack_Size)
                 [!provide]                        PROVIDE (_Main_Stack_Limit = __Main_Stack_Limit)
                 0x0000000000000100                _Minimum_Stack_Size = 0x100
-                0x0000000020002264                PROVIDE (_Heap_Begin = _end_noinit)
+                0x000000002000425c                PROVIDE (_Heap_Begin = _end_noinit)
                 0x0000000020004c00                PROVIDE (_Heap_Limit = (__stack - __Main_Stack_Size))
 
 .isr_vector     0x0000000008000000      0x274
@@ -3523,16 +3523,16 @@ END GROUP
 
 .inits          0x0000000008000274       0x28
                 0x0000000008000274                __data_regions_array_start = .
-                0x0000000008000274        0x4 LONG 0x800283c LOADADDR (.data)
+                0x0000000008000274        0x4 LONG 0x8002970 LOADADDR (.data)
                 0x0000000008000278        0x4 LONG 0x20000000 ADDR (.data)
                 0x000000000800027c        0x4 LONG 0x20000098 (ADDR (.data) + SIZEOF (.data))
-                0x0000000008000280        0x4 LONG 0x800283c LOADADDR (.data_CCMRAM)
+                0x0000000008000280        0x4 LONG 0x8002970 LOADADDR (.data_CCMRAM)
                 0x0000000008000284        0x4 LONG 0x0 ADDR (.data_CCMRAM)
                 0x0000000008000288        0x4 LONG 0x0 (ADDR (.data_CCMRAM) + SIZEOF (.data_CCMRAM))
                 0x000000000800028c                __data_regions_array_end = .
                 0x000000000800028c                __bss_regions_array_start = .
                 0x000000000800028c        0x4 LONG 0x20000098 ADDR (.bss)
-                0x0000000008000290        0x4 LONG 0x20002264 (ADDR (.bss) + SIZEOF (.bss))
+                0x0000000008000290        0x4 LONG 0x2000425c (ADDR (.bss) + SIZEOF (.bss))
                 0x0000000008000294        0x4 LONG 0x0 ADDR (.bss_CCMRAM)
                 0x0000000008000298        0x4 LONG 0x0 (ADDR (.bss_CCMRAM) + SIZEOF (.bss_CCMRAM))
                 0x000000000800029c                __bss_regions_array_end = .
@@ -3558,7 +3558,7 @@ END GROUP
 .flashtext
  *(.flashtext .flashtext.*)
 
-.text           0x000000000800029c     0x259f
+.text           0x000000000800029c     0x26d3
  *(.text .text.*)
  .text.HAL_InitTick
                 0x000000000800029c       0x4c ./system/src/stm32f1-hal/stm32f1xx_hal.o
@@ -3610,417 +3610,417 @@ END GROUP
                 0x00000000080005fc       0x2c ./src/cdcacm.o
                 0x00000000080005fc                led_init
  .text.tim1_init
-                0x0000000008000628       0xac ./src/cdcacm.o
+                0x0000000008000628      0x10c ./src/cdcacm.o
                 0x0000000008000628                tim1_init
  .text.TIM1_CC_IRQHandler
-                0x00000000080006d4       0xcc ./src/cdcacm.o
-                0x00000000080006d4                TIM1_CC_IRQHandler
+                0x0000000008000734      0x108 ./src/cdcacm.o
+                0x0000000008000734                TIM1_CC_IRQHandler
  .text.TIM1_UP_IRQHandler
-                0x00000000080007a0       0x40 ./src/cdcacm.o
-                0x00000000080007a0                TIM1_UP_IRQHandler
- .text.main     0x00000000080007e0      0x14c ./src/cdcacm.o
-                0x00000000080007e0                main
+                0x000000000800083c       0x38 ./src/cdcacm.o
+                0x000000000800083c                TIM1_UP_IRQHandler
+ .text.main     0x0000000008000874      0x1b0 ./src/cdcacm.o
+                0x0000000008000874                main
  .text.SystemClock_Config
-                0x000000000800092c       0x20 ./src/initialize-hardware.o
-                0x000000000800092c                SystemClock_Config
+                0x0000000008000a24       0x20 ./src/initialize-hardware.o
+                0x0000000008000a24                SystemClock_Config
  .text.__initialize_hardware
-                0x000000000800094c       0x10 ./src/initialize-hardware.o
-                0x000000000800094c                __initialize_hardware
+                0x0000000008000a44       0x10 ./src/initialize-hardware.o
+                0x0000000008000a44                __initialize_hardware
  .text.assert_failed
-                0x000000000800095c        0x2 ./src/initialize-hardware.o
-                0x000000000800095c                assert_failed
+                0x0000000008000a54        0x2 ./src/initialize-hardware.o
+                0x0000000008000a54                assert_failed
  .text.HAL_MspInit
-                0x000000000800095e        0x2 ./src/stm32f1xx_hal_msp.o
-                0x000000000800095e                HAL_MspInit
+                0x0000000008000a56        0x2 ./src/stm32f1xx_hal_msp.o
+                0x0000000008000a56                HAL_MspInit
  .text.gpio_set_mode
-                0x0000000008000960       0x5e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
-                0x0000000008000960                gpio_set_mode
+                0x0000000008000a58       0x5e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+                0x0000000008000a58                gpio_set_mode
  .text.gpio_set
-                0x00000000080009be        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
-                0x00000000080009be                gpio_set
+                0x0000000008000ab6        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+                0x0000000008000ab6                gpio_set
  .text.gpio_clear
-                0x00000000080009c2        0x6 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
-                0x00000000080009c2                gpio_clear
+                0x0000000008000aba        0x6 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+                0x0000000008000aba                gpio_clear
  .text.gpio_toggle
-                0x00000000080009c8       0x12 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
-                0x00000000080009c8                gpio_toggle
- *fill*         0x00000000080009da        0x2 
+                0x0000000008000ac0       0x12 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+                0x0000000008000ac0                gpio_toggle
+ *fill*         0x0000000008000ad2        0x2 
  .text.rcc_osc_on.part.1
-                0x00000000080009dc       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000ad4       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
  .text.rcc_is_osc_ready
-                0x00000000080009ec       0x5c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x00000000080009ec                rcc_is_osc_ready
+                0x0000000008000ae4       0x5c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000ae4                rcc_is_osc_ready
  .text.rcc_wait_for_osc_ready
-                0x0000000008000a48       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000a48                rcc_wait_for_osc_ready
+                0x0000000008000b40       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000b40                rcc_wait_for_osc_ready
  .text.rcc_osc_on
-                0x0000000008000a58       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000a58                rcc_osc_on
+                0x0000000008000b50       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000b50                rcc_osc_on
  .text.rcc_set_sysclk_source
-                0x0000000008000aac       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000aac                rcc_set_sysclk_source
+                0x0000000008000ba4       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000ba4                rcc_set_sysclk_source
  .text.rcc_set_pll_multiplication_factor
-                0x0000000008000ac0       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000ac0                rcc_set_pll_multiplication_factor
+                0x0000000008000bb8       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000bb8                rcc_set_pll_multiplication_factor
  .text.rcc_set_pll2_multiplication_factor
-                0x0000000008000ad4       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000ad4                rcc_set_pll2_multiplication_factor
+                0x0000000008000bcc       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000bcc                rcc_set_pll2_multiplication_factor
  .text.rcc_set_pll3_multiplication_factor
-                0x0000000008000ae8       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000ae8                rcc_set_pll3_multiplication_factor
+                0x0000000008000be0       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000be0                rcc_set_pll3_multiplication_factor
  .text.rcc_set_pll_source
-                0x0000000008000afc       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000afc                rcc_set_pll_source
+                0x0000000008000bf4       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000bf4                rcc_set_pll_source
  .text.rcc_set_pllxtpre
-                0x0000000008000b10       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b10                rcc_set_pllxtpre
+                0x0000000008000c08       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c08                rcc_set_pllxtpre
  .text.rcc_set_adcpre
-                0x0000000008000b24       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b24                rcc_set_adcpre
+                0x0000000008000c1c       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c1c                rcc_set_adcpre
  .text.rcc_set_ppre2
-                0x0000000008000b38       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b38                rcc_set_ppre2
+                0x0000000008000c30       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c30                rcc_set_ppre2
  .text.rcc_set_ppre1
-                0x0000000008000b4c       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b4c                rcc_set_ppre1
+                0x0000000008000c44       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c44                rcc_set_ppre1
  .text.rcc_set_hpre
-                0x0000000008000b60       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b60                rcc_set_hpre
+                0x0000000008000c58       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c58                rcc_set_hpre
  .text.rcc_set_usbpre
-                0x0000000008000b74       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b74                rcc_set_usbpre
+                0x0000000008000c6c       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c6c                rcc_set_usbpre
  .text.rcc_set_prediv1
-                0x0000000008000b8c       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000b8c                rcc_set_prediv1
+                0x0000000008000c84       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c84                rcc_set_prediv1
  .text.rcc_set_prediv2
-                0x0000000008000ba0       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000ba0                rcc_set_prediv2
+                0x0000000008000c98       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000c98                rcc_set_prediv2
  .text.rcc_set_prediv1_source
-                0x0000000008000bb4       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000bb4                rcc_set_prediv1_source
+                0x0000000008000cac       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000cac                rcc_set_prediv1_source
  .text.rcc_clock_setup_pll
-                0x0000000008000bcc       0xc8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008000bcc                rcc_clock_setup_pll
+                0x0000000008000cc4       0xc8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x0000000008000cc4                rcc_clock_setup_pll
  .text.rcc_periph_clock_enable
-                0x0000000008000c94       0x1a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
-                0x0000000008000c94                rcc_periph_clock_enable
+                0x0000000008000d8c       0x1a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+                0x0000000008000d8c                rcc_periph_clock_enable
  .text.rcc_periph_reset_pulse
-                0x0000000008000cae       0x22 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
-                0x0000000008000cae                rcc_periph_reset_pulse
+                0x0000000008000da6       0x22 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+                0x0000000008000da6                rcc_periph_reset_pulse
  .text.timer_ic_set_polarity
-                0x0000000008000cd0       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
-                0x0000000008000cd0                timer_ic_set_polarity
+                0x0000000008000dc8       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+                0x0000000008000dc8                timer_ic_set_polarity
  .text.timer_enable_irq
-                0x0000000008000ce8        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000ce8                timer_enable_irq
+                0x0000000008000de0        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000de0                timer_enable_irq
  .text.timer_get_flag
-                0x0000000008000cf0        0xc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000cf0                timer_get_flag
+                0x0000000008000de8        0xc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000de8                timer_get_flag
  .text.timer_clear_flag
-                0x0000000008000cfc        0x6 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000cfc                timer_clear_flag
+                0x0000000008000df4        0x6 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000df4                timer_clear_flag
  .text.timer_set_mode
-                0x0000000008000d02       0x12 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d02                timer_set_mode
+                0x0000000008000dfa       0x12 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000dfa                timer_set_mode
  .text.timer_disable_preload
-                0x0000000008000d14        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d14                timer_disable_preload
+                0x0000000008000e0c        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e0c                timer_disable_preload
  .text.timer_continuous_mode
-                0x0000000008000d1e        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d1e                timer_continuous_mode
+                0x0000000008000e16        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e16                timer_continuous_mode
  .text.timer_enable_counter
-                0x0000000008000d28        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d28                timer_enable_counter
+                0x0000000008000e20        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e20                timer_enable_counter
+ .text.timer_set_ti1_ch123_xor
+                0x0000000008000e2a        0xa /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e2a                timer_set_ti1_ch123_xor
  .text.timer_set_prescaler
-                0x0000000008000d32        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d32                timer_set_prescaler
+                0x0000000008000e34        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e34                timer_set_prescaler
  .text.timer_set_period
-                0x0000000008000d36        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d36                timer_set_period
- .text.timer_get_counter
-                0x0000000008000d3a        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d3a                timer_get_counter
+                0x0000000008000e38        0x4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e38                timer_set_period
  .text.timer_ic_set_filter
-                0x0000000008000d3e       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d3e                timer_ic_set_filter
+                0x0000000008000e3c       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e3c                timer_ic_set_filter
  .text.timer_ic_set_prescaler
-                0x0000000008000d8e       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000d8e                timer_ic_set_prescaler
+                0x0000000008000e8c       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000e8c                timer_ic_set_prescaler
  .text.timer_ic_set_input
-                0x0000000008000dde       0x66 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000dde                timer_ic_set_input
+                0x0000000008000edc       0x66 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000edc                timer_ic_set_input
  .text.timer_ic_enable
-                0x0000000008000e44        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
-                0x0000000008000e44                timer_ic_enable
- *fill*         0x0000000008000e52        0x2 
+                0x0000000008000f42        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+                0x0000000008000f42                timer_ic_enable
  .text.usbd_init
-                0x0000000008000e54       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000e54                usbd_init
+                0x0000000008000f50       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000f50                usbd_init
  .text.usbd_poll
-                0x0000000008000ea8        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000ea8                usbd_poll
+                0x0000000008000fa4        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000fa4                usbd_poll
  .text.usbd_ep_setup
-                0x0000000008000eb0        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000eb0                usbd_ep_setup
+                0x0000000008000fac        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000fac                usbd_ep_setup
  .text._usbd_reset
-                0x0000000008000ebe       0x32 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000ebe                _usbd_reset
+                0x0000000008000fba       0x32 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000fba                _usbd_reset
  .text.usbd_ep_write_packet
-                0x0000000008000ef0        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000ef0                usbd_ep_write_packet
+                0x0000000008000fec        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000fec                usbd_ep_write_packet
  .text.usbd_ep_read_packet
-                0x0000000008000efe        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000efe                usbd_ep_read_packet
+                0x0000000008000ffa        0xe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008000ffa                usbd_ep_read_packet
  .text.usbd_ep_stall_set
-                0x0000000008000f0c        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000f0c                usbd_ep_stall_set
+                0x0000000008001008        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008001008                usbd_ep_stall_set
  .text.usbd_ep_stall_get
-                0x0000000008000f14        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000f14                usbd_ep_stall_get
+                0x0000000008001010        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008001010                usbd_ep_stall_get
  .text.usbd_ep_nak_set
-                0x0000000008000f1c        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
-                0x0000000008000f1c                usbd_ep_nak_set
+                0x0000000008001018        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+                0x0000000008001018                usbd_ep_nak_set
  .text.usb_control_send_chunk
-                0x0000000008000f24       0x52 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001020       0x52 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
  .text.usb_control_request_dispatch
-                0x0000000008000f76       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001072       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
  .text.stall_transaction
-                0x0000000008000fd6       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x00000000080010d2       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
  .text.usb_control_recv_chunk
-                0x0000000008000fea       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x00000000080010e6       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
  .text.usb_control_setup_read
-                0x0000000008001026       0x66 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001122       0x66 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
  .text.usbd_register_control_callback
-                0x000000000800108c       0x2c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
-                0x000000000800108c                usbd_register_control_callback
+                0x0000000008001188       0x2c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001188                usbd_register_control_callback
  .text._usbd_control_setup
-                0x00000000080010b8       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
-                0x00000000080010b8                _usbd_control_setup
+                0x00000000080011b4       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x00000000080011b4                _usbd_control_setup
  .text._usbd_control_out
-                0x0000000008001118       0x82 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
-                0x0000000008001118                _usbd_control_out
+                0x0000000008001214       0x82 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001214                _usbd_control_out
  .text._usbd_control_in
-                0x000000000800119a       0x64 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
-                0x000000000800119a                _usbd_control_in
+                0x0000000008001296       0x64 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+                0x0000000008001296                _usbd_control_in
  .text.usb_standard_set_address
-                0x00000000080011fe       0x2a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x00000000080012fa       0x2a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_set_configuration
-                0x0000000008001228       0x92 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x0000000008001324       0x92 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_get_configuration
-                0x00000000080012ba       0x22 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x00000000080013b6       0x22 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_get_interface
-                0x00000000080012dc       0x34 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x00000000080013d8       0x34 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_device_get_status
-                0x0000000008001310       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800140c       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_endpoint_get_status
-                0x0000000008001328       0x2a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x0000000008001424       0x2a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_endpoint_stall
-                0x0000000008001352       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800144e       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_endpoint_unstall
-                0x0000000008001362       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800145e       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_set_interface
-                0x0000000008001372       0x4e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800146e       0x4e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_get_descriptor
-                0x00000000080013c0      0x290 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x00000000080014bc      0x290 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usb_standard_interface_get_status
-                0x0000000008001650       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800174c       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
  .text.usbd_register_set_config_callback
-                0x0000000008001668       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
-                0x0000000008001668                usbd_register_set_config_callback
+                0x0000000008001764       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x0000000008001764                usbd_register_set_config_callback
  .text._usbd_standard_request_device
-                0x0000000008001690       0x48 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
-                0x0000000008001690                _usbd_standard_request_device
+                0x000000000800178c       0x48 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x000000000800178c                _usbd_standard_request_device
  .text._usbd_standard_request_interface
-                0x00000000080016d8       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
-                0x00000000080016d8                _usbd_standard_request_interface
+                0x00000000080017d4       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x00000000080017d4                _usbd_standard_request_interface
  .text._usbd_standard_request_endpoint
-                0x0000000008001708       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
-                0x0000000008001708                _usbd_standard_request_endpoint
+                0x0000000008001804       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x0000000008001804                _usbd_standard_request_endpoint
  .text._usbd_standard_request
-                0x0000000008001744       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
-                0x0000000008001744                _usbd_standard_request
+                0x0000000008001840       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+                0x0000000008001840                _usbd_standard_request
  .text.st_usbfs_v1_usbd_init
-                0x0000000008001774       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+                0x0000000008001870       0x30 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
  .text.st_usbfs_copy_to_pm
-                0x00000000080017a4       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
-                0x00000000080017a4                st_usbfs_copy_to_pm
+                0x00000000080018a0       0x18 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+                0x00000000080018a0                st_usbfs_copy_to_pm
  .text.st_usbfs_copy_from_pm
-                0x00000000080017bc       0x26 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
-                0x00000000080017bc                st_usbfs_copy_from_pm
+                0x00000000080018b8       0x26 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+                0x00000000080018b8                st_usbfs_copy_from_pm
  .text.nvic_enable_irq
-                0x00000000080017e2       0x1a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
-                0x00000000080017e2                nvic_enable_irq
+                0x00000000080018de       0x1a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+                0x00000000080018de                nvic_enable_irq
  .text.flash_set_ws
-                0x00000000080017fc       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
-                0x00000000080017fc                flash_set_ws
+                0x00000000080018f8       0x14 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+                0x00000000080018f8                flash_set_ws
  .text.st_usbfs_set_address
-                0x0000000008001810       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001810                st_usbfs_set_address
+                0x000000000800190c       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x000000000800190c                st_usbfs_set_address
  .text.st_usbfs_set_ep_rx_bufsize
-                0x0000000008001820       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001820                st_usbfs_set_ep_rx_bufsize
+                0x000000000800191c       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x000000000800191c                st_usbfs_set_ep_rx_bufsize
  .text.st_usbfs_ep_setup
-                0x000000000800185c      0x11c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x000000000800185c                st_usbfs_ep_setup
+                0x0000000008001958      0x11c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001958                st_usbfs_ep_setup
  .text.st_usbfs_endpoints_reset
-                0x0000000008001978       0x44 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001978                st_usbfs_endpoints_reset
+                0x0000000008001a74       0x44 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001a74                st_usbfs_endpoints_reset
  .text.st_usbfs_ep_stall_set
-                0x00000000080019bc       0xbc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x00000000080019bc                st_usbfs_ep_stall_set
+                0x0000000008001ab8       0xbc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001ab8                st_usbfs_ep_stall_set
  .text.st_usbfs_ep_stall_get
-                0x0000000008001a78       0x38 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001a78                st_usbfs_ep_stall_get
+                0x0000000008001b74       0x38 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001b74                st_usbfs_ep_stall_get
  .text.st_usbfs_ep_nak_set
-                0x0000000008001ab0       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001ab0                st_usbfs_ep_nak_set
+                0x0000000008001bac       0x3c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001bac                st_usbfs_ep_nak_set
  .text.st_usbfs_ep_write_packet
-                0x0000000008001aec       0x7c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001aec                st_usbfs_ep_write_packet
+                0x0000000008001be8       0x7c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001be8                st_usbfs_ep_write_packet
  .text.st_usbfs_ep_read_packet
-                0x0000000008001b68       0xa8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001b68                st_usbfs_ep_read_packet
+                0x0000000008001c64       0xa8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001c64                st_usbfs_ep_read_packet
  .text.st_usbfs_poll
-                0x0000000008001c10       0xe8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000008001c10                st_usbfs_poll
- .text.__errno  0x0000000008001cf8        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-errno.o)
-                0x0000000008001cf8                __errno
- .text.memcpy   0x0000000008001d04       0x1c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memcpy-stub.o)
-                0x0000000008001d04                memcpy
- .text.sprintf  0x0000000008001d20       0x40 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sprintf.o)
-                0x0000000008001d20                sprintf
-                0x0000000008001d20                siprintf
- .text          0x0000000008001d60       0x10 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-strlen.o)
-                0x0000000008001d60                strlen
+                0x0000000008001d0c       0xe8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000008001d0c                st_usbfs_poll
+ .text.__errno  0x0000000008001df4        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-errno.o)
+                0x0000000008001df4                __errno
+ .text.memcpy   0x0000000008001e00       0x1c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memcpy-stub.o)
+                0x0000000008001e00                memcpy
+ .text.sprintf  0x0000000008001e1c       0x40 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sprintf.o)
+                0x0000000008001e1c                sprintf
+                0x0000000008001e1c                siprintf
+ .text          0x0000000008001e5c       0x10 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-strlen.o)
+                0x0000000008001e5c                strlen
  .text.__ssputs_r
-                0x0000000008001d70       0xb6 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000008001d70                __ssputs_r
- *fill*         0x0000000008001e26        0x2 
+                0x0000000008001e6c       0xb6 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008001e6c                __ssputs_r
+ *fill*         0x0000000008001f22        0x2 
  .text._svfprintf_r
-                0x0000000008001e28      0x200 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000008001e28                _svfprintf_r
-                0x0000000008001e28                _svfiprintf_r
+                0x0000000008001f24      0x200 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000008001f24                _svfprintf_r
+                0x0000000008001f24                _svfiprintf_r
  .text._printf_common
-                0x0000000008002028       0xde /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000008002028                _printf_common
- *fill*         0x0000000008002106        0x2 
+                0x0000000008002124       0xde /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000008002124                _printf_common
+ *fill*         0x0000000008002202        0x2 
  .text._printf_i
-                0x0000000008002108      0x24c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000008002108                _printf_i
- .text.memchr   0x0000000008002354       0x1c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memchr-stub.o)
-                0x0000000008002354                memchr
- .text.memmove  0x0000000008002370       0x34 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memmove.o)
-                0x0000000008002370                memmove
- .text._free_r  0x00000000080023a4       0x90 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-freer.o)
-                0x00000000080023a4                _free_r
+                0x0000000008002204      0x24c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000008002204                _printf_i
+ .text.memchr   0x0000000008002450       0x1c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memchr-stub.o)
+                0x0000000008002450                memchr
+ .text.memmove  0x000000000800246c       0x34 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memmove.o)
+                0x000000000800246c                memmove
+ .text._free_r  0x00000000080024a0       0x90 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-freer.o)
+                0x00000000080024a0                _free_r
  .text.sbrk_aligned
-                0x0000000008002434       0x40 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
+                0x0000000008002530       0x40 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
  .text._malloc_r
-                0x0000000008002474       0xe8 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
-                0x0000000008002474                _malloc_r
+                0x0000000008002570       0xe8 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
+                0x0000000008002570                _malloc_r
  .text._realloc_r
-                0x000000000800255c       0x5e /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-reallocr.o)
-                0x000000000800255c                _realloc_r
- *fill*         0x00000000080025ba        0x2 
- .text._sbrk_r  0x00000000080025bc       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sbrkr.o)
-                0x00000000080025bc                _sbrk_r
+                0x0000000008002658       0x5e /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-reallocr.o)
+                0x0000000008002658                _realloc_r
+ *fill*         0x00000000080026b6        0x2 
+ .text._sbrk_r  0x00000000080026b8       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sbrkr.o)
+                0x00000000080026b8                _sbrk_r
  .text.__malloc_lock
-                0x00000000080025dc        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
-                0x00000000080025dc                __malloc_lock
+                0x00000000080026d8        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
+                0x00000000080026d8                __malloc_lock
  .text.__malloc_unlock
-                0x00000000080025e8        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
-                0x00000000080025e8                __malloc_unlock
+                0x00000000080026e4        0xc /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
+                0x00000000080026e4                __malloc_unlock
  .text._malloc_usable_size_r
-                0x00000000080025f4       0x10 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-msizer.o)
-                0x00000000080025f4                _malloc_usable_size_r
+                0x00000000080026f0       0x10 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-msizer.o)
+                0x00000000080026f0                _malloc_usable_size_r
  .text.__retarget_lock_acquire_recursive
-                0x0000000008002604        0x2 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
-                0x0000000008002604                __retarget_lock_acquire_recursive
+                0x0000000008002700        0x2 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
+                0x0000000008002700                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x0000000008002606        0x2 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
-                0x0000000008002606                __retarget_lock_release_recursive
+                0x0000000008002702        0x2 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
+                0x0000000008002702                __retarget_lock_release_recursive
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.HAL_NVIC_SetPriorityGrouping.str1.4
-                0x0000000008002608       0x31 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
- *fill*         0x0000000008002639        0x3 
+                0x0000000008002704       0x31 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
+ *fill*         0x0000000008002735        0x3 
  .rodata.AHBPrescTable
-                0x000000000800263c       0x10 ./system/src/cmsis/system_stm32f1xx.o
-                0x000000000800263c                AHBPrescTable
+                0x0000000008002738       0x10 ./system/src/cmsis/system_stm32f1xx.o
+                0x0000000008002738                AHBPrescTable
  .rodata.main.str1.4
-                0x000000000800264c       0x10 ./src/cdcacm.o
+                0x0000000008002748       0x45 ./src/cdcacm.o
+ *fill*         0x000000000800278d        0x3 
  .rodata.str1.4
-                0x000000000800265c       0x31 ./src/cdcacm.o
- *fill*         0x000000000800268d        0x3 
+                0x0000000008002790       0x31 ./src/cdcacm.o
+ *fill*         0x00000000080027c1        0x3 
  .rodata.cdcacm_functional_descriptors
-                0x0000000008002690       0x13 ./src/cdcacm.o
- *fill*         0x00000000080026a3        0x1 
+                0x00000000080027c4       0x13 ./src/cdcacm.o
+ *fill*         0x00000000080027d7        0x1 
  .rodata.comm_endp
-                0x00000000080026a4        0xf ./src/cdcacm.o
- *fill*         0x00000000080026b3        0x1 
+                0x00000000080027d8        0xf ./src/cdcacm.o
+ *fill*         0x00000000080027e7        0x1 
  .rodata.comm_iface
-                0x00000000080026b4       0x15 ./src/cdcacm.o
- *fill*         0x00000000080026c9        0x3 
+                0x00000000080027e8       0x15 ./src/cdcacm.o
+ *fill*         0x00000000080027fd        0x3 
  .rodata.config
-                0x00000000080026cc        0xd ./src/cdcacm.o
- *fill*         0x00000000080026d9        0x3 
+                0x0000000008002800        0xd ./src/cdcacm.o
+ *fill*         0x000000000800280d        0x3 
  .rodata.data_endp
-                0x00000000080026dc       0x1e ./src/cdcacm.o
- *fill*         0x00000000080026fa        0x2 
+                0x0000000008002810       0x1e ./src/cdcacm.o
+ *fill*         0x000000000800282e        0x2 
  .rodata.data_iface
-                0x00000000080026fc       0x15 ./src/cdcacm.o
- *fill*         0x0000000008002711        0x3 
- .rodata.dev    0x0000000008002714       0x12 ./src/cdcacm.o
- *fill*         0x0000000008002726        0x2 
+                0x0000000008002830       0x15 ./src/cdcacm.o
+ *fill*         0x0000000008002845        0x3 
+ .rodata.dev    0x0000000008002848       0x12 ./src/cdcacm.o
+ *fill*         0x000000000800285a        0x2 
  .rodata.ifaces
-                0x0000000008002728       0x20 ./src/cdcacm.o
+                0x000000000800285c       0x20 ./src/cdcacm.o
  .rodata.rcc_hse_configs
-                0x0000000008002748       0x8c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
-                0x0000000008002748                rcc_hse_configs
+                0x000000000800287c       0x8c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+                0x000000000800287c                rcc_hse_configs
  .rodata.st_usbfs_v1_usb_driver
-                0x00000000080027d4       0x34 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
-                0x00000000080027d4                st_usbfs_v1_usb_driver
+                0x0000000008002908       0x34 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+                0x0000000008002908                st_usbfs_v1_usb_driver
  .rodata._svfprintf_r.str1.1
-                0x0000000008002808       0x11 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
+                0x000000000800293c       0x11 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x0000000008002819       0x22 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x000000000800294d       0x22 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
  *(vtable)
  *(.eh_frame*)
  *(.glue_7)
- .glue_7        0x000000000800283b        0x0 linker stubs
+ .glue_7        0x000000000800296f        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x000000000800283b        0x0 linker stubs
+ .glue_7t       0x000000000800296f        0x0 linker stubs
 
-.vfp11_veneer   0x000000000800283c        0x0
- .vfp11_veneer  0x000000000800283c        0x0 linker stubs
+.vfp11_veneer   0x0000000008002970        0x0
+ .vfp11_veneer  0x0000000008002970        0x0 linker stubs
 
-.v4_bx          0x000000000800283c        0x0
- .v4_bx         0x000000000800283c        0x0 linker stubs
+.v4_bx          0x0000000008002970        0x0
+ .v4_bx         0x0000000008002970        0x0 linker stubs
 
-.iplt           0x000000000800283c        0x0
- .iplt          0x000000000800283c        0x0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
+.iplt           0x0000000008002970        0x0
+ .iplt          0x0000000008002970        0x0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
 
-.rel.dyn        0x000000000800283c        0x0
- .rel.iplt      0x000000000800283c        0x0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
+.rel.dyn        0x0000000008002970        0x0
+ .rel.iplt      0x0000000008002970        0x0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000000000800283c                . = ALIGN (0x4)
-                0x000000000800283c                __exidx_start = .
+                0x0000000008002970                . = ALIGN (0x4)
+                0x0000000008002970                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000000000800283c                __exidx_end = .
-                0x000000000800283c                . = ALIGN (0x4)
-                0x000000000800283c                _etext = .
-                0x000000000800283c                __etext = .
+                0x0000000008002970                __exidx_end = .
+                0x0000000008002970                . = ALIGN (0x4)
+                0x0000000008002970                _etext = .
+                0x0000000008002970                __etext = .
 
-.data_CCMRAM    0x0000000000000000        0x0 load address 0x000000000800283c
+.data_CCMRAM    0x0000000000000000        0x0 load address 0x0000000008002970
  FILL mask 0xff
  *(.data.CCMRAM .data.CCMRAM.*)
                 0x0000000000000000                . = ALIGN (0x4)
-                0x000000000800283c                _sidata = LOADADDR (.data)
+                0x0000000008002970                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0x98 load address 0x000000000800283c
+.data           0x0000000020000000       0x98 load address 0x0000000008002970
  FILL mask 0xff
                 0x0000000020000000                _sdata = .
                 0x0000000020000000                __data_start__ = .
@@ -4060,13 +4060,13 @@ END GROUP
                 0x0000000020000098                _edata = .
                 0x0000000020000098                __data_end__ = .
 
-.igot.plt       0x0000000020000098        0x0 load address 0x00000000080028d4
+.igot.plt       0x0000000020000098        0x0 load address 0x0000000008002a08
  .igot.plt      0x0000000020000098        0x0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
 
 .bss_CCMRAM     0x0000000000000000        0x0
  *(.bss.CCMRAM .bss.CCMRAM.*)
 
-.bss            0x0000000020000098     0x21cc
+.bss            0x0000000020000098     0x41c4
                 0x0000000020000098                __bss_start__ = .
                 0x0000000020000098                _sbss = .
  *(.bss_begin .bss_begin.*)
@@ -4079,64 +4079,63 @@ END GROUP
  .bss.name.0    0x00000000200000a4        0x1 ./system/src/newlib/syscalls.o
  *fill*         0x00000000200000a5        0x3 
  .bss.g_captured
-                0x00000000200000a8     0x2000 ./src/cdcacm.o
+                0x00000000200000a8     0x4000 ./src/cdcacm.o
                 0x00000000200000a8                g_captured
- .bss.g_captured_cnt
-                0x00000000200020a8        0x4 ./src/cdcacm.o
-                0x00000000200020a8                g_captured_cnt
- .bss.g_ovf     0x00000000200020ac        0x4 ./src/cdcacm.o
-                0x00000000200020ac                g_ovf
- .bss.g_qend    0x00000000200020b0        0x4 ./src/cdcacm.o
-                0x00000000200020b0                g_qend
- .bss.g_qstart  0x00000000200020b4        0x4 ./src/cdcacm.o
-                0x00000000200020b4                g_qstart
- .bss.last      0x00000000200020b8        0x8 ./src/cdcacm.o
-                0x00000000200020b8                last
- .bss.tickcnt   0x00000000200020c0        0x4 ./src/cdcacm.o
-                0x00000000200020c0                tickcnt
+ .bss.g_first_time
+                0x00000000200040a8        0x1 ./src/cdcacm.o
+                0x00000000200040a8                g_first_time
+ *fill*         0x00000000200040a9        0x3 
+ .bss.g_ovf     0x00000000200040ac        0x4 ./src/cdcacm.o
+                0x00000000200040ac                g_ovf
+ .bss.g_qend    0x00000000200040b0        0x4 ./src/cdcacm.o
+                0x00000000200040b0                g_qend
+ .bss.g_qstart  0x00000000200040b4        0x4 ./src/cdcacm.o
+                0x00000000200040b4                g_qstart
+ .bss.tickcnt   0x00000000200040b8        0x4 ./src/cdcacm.o
+                0x00000000200040b8                tickcnt
  .bss.usbd_control_buffer
-                0x00000000200020c4       0x80 ./src/cdcacm.o
-                0x00000000200020c4                usbd_control_buffer
- .bss.usbd_dev  0x0000000020002144        0x4 ./src/cdcacm.o
+                0x00000000200040bc       0x80 ./src/cdcacm.o
+                0x00000000200040bc                usbd_control_buffer
+ .bss.usbd_dev  0x000000002000413c        0x4 ./src/cdcacm.o
  .bss.st_usbfs_dev
-                0x0000000020002148      0x104 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x0000000020002148                st_usbfs_dev
+                0x0000000020004140      0x104 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000020004140                st_usbfs_dev
  .bss.st_usbfs_force_nak
-                0x000000002000224c        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
-                0x000000002000224c                st_usbfs_force_nak
+                0x0000000020004244        0x8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+                0x0000000020004244                st_usbfs_force_nak
  .bss.__malloc_free_list
-                0x0000000020002254        0x4 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020002254                __malloc_free_list
+                0x000000002000424c        0x4 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
+                0x000000002000424c                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x0000000020002258        0x4 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
-                0x0000000020002258                __malloc_sbrk_start
+                0x0000000020004250        0x4 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020004250                __malloc_sbrk_start
  .bss.__lock___malloc_recursive_mutex
-                0x000000002000225c        0x1 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
-                0x000000002000225c                __lock___malloc_recursive_mutex
+                0x0000000020004254        0x1 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
+                0x0000000020004254                __lock___malloc_recursive_mutex
  *(COMMON)
  *(.bss_end .bss_end.*)
- *fill*         0x000000002000225d        0x3 
- .bss_end       0x0000000020002260        0x4 ./system/src/newlib/startup.o
-                0x0000000020002264                . = ALIGN (0x4)
-                0x0000000020002264                __bss_end__ = .
-                0x0000000020002264                _ebss = .
+ *fill*         0x0000000020004255        0x3 
+ .bss_end       0x0000000020004258        0x4 ./system/src/newlib/startup.o
+                0x000000002000425c                . = ALIGN (0x4)
+                0x000000002000425c                __bss_end__ = .
+                0x000000002000425c                _ebss = .
 
 .noinit_CCMRAM
  *(.noinit.CCMRAM .noinit.CCMRAM.*)
 
-.noinit         0x0000000020002264        0x0
-                0x0000000020002264                _noinit = .
+.noinit         0x000000002000425c        0x0
+                0x000000002000425c                _noinit = .
  *(.noinit .noinit.*)
-                0x0000000020002264                . = ALIGN (0x4)
-                0x0000000020002264                _end_noinit = .
+                0x000000002000425c                . = ALIGN (0x4)
+                0x000000002000425c                _end_noinit = .
                 [!provide]                        PROVIDE (end = _end_noinit)
                 [!provide]                        PROVIDE (_end = _end_noinit)
                 [!provide]                        PROVIDE (__end = _end_noinit)
                 [!provide]                        PROVIDE (__end__ = _end_noinit)
 
-._check_stack   0x0000000020002264      0x100
-                0x0000000020002364                . = (. + _Minimum_Stack_Size)
- *fill*         0x0000000020002264      0x100 
+._check_stack   0x000000002000425c      0x100
+                0x000000002000435c                . = (. + _Minimum_Stack_Size)
+ *fill*         0x000000002000425c      0x100 
 
 .b1text
  *(.b1text)
@@ -4374,7 +4373,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0xfae8
+.debug_info     0x0000000000000000     0xfc47
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x7b9 ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_info    0x00000000000007b9      0xeaa ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
@@ -4387,24 +4386,24 @@ END GROUP
  .debug_info    0x0000000000002e24      0x2b3 ./system/src/cortexm/initialize-hardware.o
  .debug_info    0x00000000000030d7      0x234 ./system/src/cmsis/system_stm32f1xx.o
  .debug_info    0x000000000000330b       0xcd ./system/src/cmsis/vectors_stm32f103x6.o
- .debug_info    0x00000000000033d8     0x1735 ./src/cdcacm.o
- .debug_info    0x0000000000004b0d      0x1af ./src/initialize-hardware.o
- .debug_info    0x0000000000004cbc       0xbf ./src/stm32f1xx_hal_msp.o
- .debug_info    0x0000000000004d7b      0x216 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_info    0x0000000000004f91      0x266 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_info    0x00000000000051f7     0x16d8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_info    0x00000000000068cf      0x7d2 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_info    0x00000000000070a1      0x115 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_info    0x00000000000071b6     0x12cc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_info    0x0000000000008482     0x1859 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_info    0x0000000000009cdb     0x194d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_info    0x000000000000b628     0x1fc9 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_info    0x000000000000d5f1      0xf5f /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_info    0x000000000000e550      0x251 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_info    0x000000000000e7a1       0xfc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_info    0x000000000000e89d     0x124b /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_info    0x00000000000033d8     0x1894 ./src/cdcacm.o
+ .debug_info    0x0000000000004c6c      0x1af ./src/initialize-hardware.o
+ .debug_info    0x0000000000004e1b       0xbf ./src/stm32f1xx_hal_msp.o
+ .debug_info    0x0000000000004eda      0x216 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_info    0x00000000000050f0      0x266 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_info    0x0000000000005356     0x16d8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_info    0x0000000000006a2e      0x7d2 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_info    0x0000000000007200      0x115 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_info    0x0000000000007315     0x12cc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_info    0x00000000000085e1     0x1859 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_info    0x0000000000009e3a     0x194d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_info    0x000000000000b787     0x1fc9 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_info    0x000000000000d750      0xf5f /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_info    0x000000000000e6af      0x251 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_info    0x000000000000e900       0xfc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_info    0x000000000000e9fc     0x124b /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
 
-.debug_abbrev   0x0000000000000000     0x3226
+.debug_abbrev   0x0000000000000000     0x31fb
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000      0x1f7 ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_abbrev  0x00000000000001f7      0x361 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
@@ -4417,24 +4416,24 @@ END GROUP
  .debug_abbrev  0x0000000000000d20       0xe9 ./system/src/cortexm/initialize-hardware.o
  .debug_abbrev  0x0000000000000e09      0x141 ./system/src/cmsis/system_stm32f1xx.o
  .debug_abbrev  0x0000000000000f4a       0xa5 ./system/src/cmsis/vectors_stm32f103x6.o
- .debug_abbrev  0x0000000000000fef      0x37f ./src/cdcacm.o
- .debug_abbrev  0x000000000000136e       0xef ./src/initialize-hardware.o
- .debug_abbrev  0x000000000000145d       0x47 ./src/stm32f1xx_hal_msp.o
- .debug_abbrev  0x00000000000014a4       0xd0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_abbrev  0x0000000000001574      0x116 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_abbrev  0x000000000000168a      0x2df /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_abbrev  0x0000000000001969      0x1c5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_abbrev  0x0000000000001b2e       0xbf /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_abbrev  0x0000000000001bed      0x1ef /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_abbrev  0x0000000000001ddc      0x347 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_abbrev  0x0000000000002123      0x48b /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_abbrev  0x00000000000025ae      0x5a8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_abbrev  0x0000000000002b56      0x28a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_abbrev  0x0000000000002de0       0xb5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_abbrev  0x0000000000002e95       0x9a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_abbrev  0x0000000000002f2f      0x2f7 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_abbrev  0x0000000000000fef      0x354 ./src/cdcacm.o
+ .debug_abbrev  0x0000000000001343       0xef ./src/initialize-hardware.o
+ .debug_abbrev  0x0000000000001432       0x47 ./src/stm32f1xx_hal_msp.o
+ .debug_abbrev  0x0000000000001479       0xd0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_abbrev  0x0000000000001549      0x116 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_abbrev  0x000000000000165f      0x2df /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_abbrev  0x000000000000193e      0x1c5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_abbrev  0x0000000000001b03       0xbf /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_abbrev  0x0000000000001bc2      0x1ef /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_abbrev  0x0000000000001db1      0x347 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_abbrev  0x00000000000020f8      0x48b /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_abbrev  0x0000000000002583      0x5a8 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_abbrev  0x0000000000002b2b      0x28a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_abbrev  0x0000000000002db5       0xb5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_abbrev  0x0000000000002e6a       0x9a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_abbrev  0x0000000000002f04      0x2f7 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
 
-.debug_line     0x0000000000000000     0xc115
+.debug_line     0x0000000000000000     0xc180
  *(.debug_line)
  .debug_line    0x0000000000000000      0x91d ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_line    0x000000000000091d      0xb49 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
@@ -4447,24 +4446,24 @@ END GROUP
  .debug_line    0x00000000000040b3      0x629 ./system/src/cortexm/initialize-hardware.o
  .debug_line    0x00000000000046dc      0x6aa ./system/src/cmsis/system_stm32f1xx.o
  .debug_line    0x0000000000004d86      0x112 ./system/src/cmsis/vectors_stm32f103x6.o
- .debug_line    0x0000000000004e98      0x804 ./src/cdcacm.o
- .debug_line    0x000000000000569c      0x871 ./src/initialize-hardware.o
- .debug_line    0x0000000000005f0d      0x619 ./src/stm32f1xx_hal_msp.o
- .debug_line    0x0000000000006526      0x3c9 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_line    0x00000000000068ef      0x3ec /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_line    0x0000000000006cdb      0xe3e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_line    0x0000000000007b19      0x4a7 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_line    0x0000000000007fc0      0x301 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_line    0x00000000000082c1     0x10ef /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_line    0x00000000000093b0      0x572 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_line    0x0000000000009922      0x73d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_line    0x000000000000a05f      0xc5d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_line    0x000000000000acbc      0x462 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_line    0x000000000000b11e      0x40e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_line    0x000000000000b52c      0x39d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_line    0x000000000000b8c9      0x84c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_line    0x0000000000004e98      0x86f ./src/cdcacm.o
+ .debug_line    0x0000000000005707      0x871 ./src/initialize-hardware.o
+ .debug_line    0x0000000000005f78      0x619 ./src/stm32f1xx_hal_msp.o
+ .debug_line    0x0000000000006591      0x3c9 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_line    0x000000000000695a      0x3ec /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_line    0x0000000000006d46      0xe3e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_line    0x0000000000007b84      0x4a7 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_line    0x000000000000802b      0x301 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_line    0x000000000000832c     0x10ef /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_line    0x000000000000941b      0x572 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_line    0x000000000000998d      0x73d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_line    0x000000000000a0ca      0xc5d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_line    0x000000000000ad27      0x462 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_line    0x000000000000b189      0x40e /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_line    0x000000000000b597      0x39d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_line    0x000000000000b934      0x84c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
 
-.debug_frame    0x0000000000000000     0x1dc0
+.debug_frame    0x0000000000000000     0x1dbc
  *(.debug_frame)
  .debug_frame   0x0000000000000000      0x1d0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_frame   0x00000000000001d0      0x164 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
@@ -4477,38 +4476,38 @@ END GROUP
  .debug_frame   0x00000000000006f0       0x40 ./system/src/cortexm/initialize-hardware.o
  .debug_frame   0x0000000000000730       0x30 ./system/src/cmsis/system_stm32f1xx.o
  .debug_frame   0x0000000000000760       0x20 ./system/src/cmsis/vectors_stm32f103x6.o
- .debug_frame   0x0000000000000780       0xec ./src/cdcacm.o
- .debug_frame   0x000000000000086c       0x50 ./src/initialize-hardware.o
- .debug_frame   0x00000000000008bc       0x50 ./src/stm32f1xx_hal_msp.o
- .debug_frame   0x000000000000090c       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_frame   0x000000000000096c       0x80 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_frame   0x00000000000009ec      0x328 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_frame   0x0000000000000d14       0xe0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_frame   0x0000000000000df4       0x20 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_frame   0x0000000000000e14      0x4e0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_frame   0x00000000000012f4      0x14c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_frame   0x0000000000001440      0x164 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_frame   0x00000000000015a4      0x1e4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_frame   0x0000000000001788       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_frame   0x00000000000017dc       0xa0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_frame   0x000000000000187c       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_frame   0x00000000000018cc      0x114 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
- .debug_frame   0x00000000000019e0       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-errno.o)
- .debug_frame   0x0000000000001a00       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000000000001a28       0x6c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sprintf.o)
- .debug_frame   0x0000000000001a94       0x90 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x0000000000001b24       0x60 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x0000000000001b84       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memchr-stub.o)
- .debug_frame   0x0000000000001bac       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memmove.o)
- .debug_frame   0x0000000000001bd4       0x38 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000000000001c0c       0x4c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x0000000000001c58       0x3c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x0000000000001c94       0x2c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x0000000000001cc0       0x30 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
- .debug_frame   0x0000000000001cf0       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x0000000000001d10       0xb0 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
+ .debug_frame   0x0000000000000780       0xe8 ./src/cdcacm.o
+ .debug_frame   0x0000000000000868       0x50 ./src/initialize-hardware.o
+ .debug_frame   0x00000000000008b8       0x50 ./src/stm32f1xx_hal_msp.o
+ .debug_frame   0x0000000000000908       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_frame   0x0000000000000968       0x80 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_frame   0x00000000000009e8      0x328 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_frame   0x0000000000000d10       0xe0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_frame   0x0000000000000df0       0x20 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_frame   0x0000000000000e10      0x4e0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_frame   0x00000000000012f0      0x14c /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_frame   0x000000000000143c      0x164 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_frame   0x00000000000015a0      0x1e4 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_frame   0x0000000000001784       0x54 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_frame   0x00000000000017d8       0xa0 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_frame   0x0000000000001878       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_frame   0x00000000000018c8      0x114 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_frame   0x00000000000019dc       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-errno.o)
+ .debug_frame   0x00000000000019fc       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000000000001a24       0x6c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sprintf.o)
+ .debug_frame   0x0000000000001a90       0x90 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x0000000000001b20       0x60 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x0000000000001b80       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memchr-stub.o)
+ .debug_frame   0x0000000000001ba8       0x28 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-memmove.o)
+ .debug_frame   0x0000000000001bd0       0x38 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000000000001c08       0x4c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x0000000000001c54       0x3c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x0000000000001c90       0x2c /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000000000001cbc       0x30 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-mlock.o)
+ .debug_frame   0x0000000000001cec       0x20 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x0000000000001d0c       0xb0 /home/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libg_nano.a(lib_a-lock.o)
 
-.debug_str      0x0000000000000000    0xad043
+.debug_str      0x0000000000000000    0xad034
  *(.debug_str)
  .debug_str     0x0000000000000000    0x936f4 ./system/src/stm32f1-hal/stm32f1xx_hal.o
                                       0x93b8b (size before relaxing)
@@ -4532,40 +4531,40 @@ END GROUP
                                       0x9348e (size before relaxing)
  .debug_str     0x000000000009a2be       0x59 ./system/src/cmsis/vectors_stm32f103x6.o
                                        0x3823 (size before relaxing)
- .debug_str     0x000000000009a317     0xd0af ./src/cdcacm.o
-                                      0x138a1 (size before relaxing)
- .debug_str     0x00000000000a73c6       0x44 ./src/initialize-hardware.o
+ .debug_str     0x000000000009a317     0xd0a6 ./src/cdcacm.o
+                                      0x13893 (size before relaxing)
+ .debug_str     0x00000000000a73bd       0x44 ./src/initialize-hardware.o
                                       0x96a8a (size before relaxing)
- .debug_str     0x00000000000a740a       0x3d ./src/stm32f1xx_hal_msp.o
+ .debug_str     0x00000000000a7401       0x3d ./src/stm32f1xx_hal_msp.o
                                       0x93409 (size before relaxing)
- .debug_str     0x00000000000a7447      0xede /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_str     0x00000000000a743e      0xede /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
                                        0x862f (size before relaxing)
- .debug_str     0x00000000000a8325       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_str     0x00000000000a831c       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
                                        0x8623 (size before relaxing)
- .debug_str     0x00000000000a8385      0xd23 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_str     0x00000000000a837c      0xd23 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
                                        0x8284 (size before relaxing)
- .debug_str     0x00000000000a90a8      0x186 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_str     0x00000000000a909f      0x186 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
                                        0x7a9a (size before relaxing)
- .debug_str     0x00000000000a922e       0x19 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_str     0x00000000000a9225       0x19 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
                                        0x8e1c (size before relaxing)
- .debug_str     0x00000000000a9247      0x7e2 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_str     0x00000000000a923e      0x7dc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
                                        0xc036 (size before relaxing)
- .debug_str     0x00000000000a9a29      0x909 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_str     0x00000000000a9a1a      0x909 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
                                        0x8059 (size before relaxing)
- .debug_str     0x00000000000aa332      0x105 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_str     0x00000000000aa323      0x105 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
                                        0x807e (size before relaxing)
- .debug_str     0x00000000000aa437      0x2b5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_str     0x00000000000aa428      0x2b5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
                                        0x81b1 (size before relaxing)
- .debug_str     0x00000000000aa6ec     0x1594 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_str     0x00000000000aa6dd     0x1594 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
                                        0x9c7b (size before relaxing)
- .debug_str     0x00000000000abc80     0x1246 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_str     0x00000000000abc71     0x1246 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
                                        0x5c47 (size before relaxing)
- .debug_str     0x00000000000acec6       0x64 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_str     0x00000000000aceb7       0x64 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
                                        0x5568 (size before relaxing)
- .debug_str     0x00000000000acf2a      0x119 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_str     0x00000000000acf1b      0x119 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
                                        0x9b97 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x545d
+.debug_loc      0x0000000000000000     0x546a
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x130 ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_loc     0x0000000000000130      0x8cd ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
@@ -4575,21 +4574,21 @@ END GROUP
  .debug_loc     0x00000000000011c5      0x2de ./system/src/newlib/startup.o
  .debug_loc     0x00000000000014a3       0x6f ./system/src/newlib/syscalls.o
  .debug_loc     0x0000000000001512       0xff ./system/src/cmsis/system_stm32f1xx.o
- .debug_loc     0x0000000000001611      0x25b ./src/cdcacm.o
- .debug_loc     0x000000000000186c       0x2a ./src/initialize-hardware.o
- .debug_loc     0x0000000000001896      0x170 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_loc     0x0000000000001a06       0xbe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_loc     0x0000000000001ac4      0x662 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_loc     0x0000000000002126      0x16a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_loc     0x0000000000002290       0x25 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_loc     0x00000000000022b5      0x48d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_loc     0x0000000000002742      0x544 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_loc     0x0000000000002c86      0x81a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_loc     0x00000000000034a0     0x13fc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_loc     0x000000000000489c      0x1b5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_loc     0x0000000000004a51      0x14d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_loc     0x0000000000004b9e       0x47 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_loc     0x0000000000004be5      0x878 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_loc     0x0000000000001611      0x268 ./src/cdcacm.o
+ .debug_loc     0x0000000000001879       0x2a ./src/initialize-hardware.o
+ .debug_loc     0x00000000000018a3      0x170 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_loc     0x0000000000001a13       0xbe /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_loc     0x0000000000001ad1      0x662 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_loc     0x0000000000002133      0x16a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_loc     0x000000000000229d       0x25 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_loc     0x00000000000022c2      0x48d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_loc     0x000000000000274f      0x544 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_loc     0x0000000000002c93      0x81a /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_loc     0x00000000000034ad     0x13fc /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_loc     0x00000000000048a9      0x1b5 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_loc     0x0000000000004a5e      0x14d /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_loc     0x0000000000004bab       0x47 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_loc     0x0000000000004bf2      0x878 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -4608,7 +4607,7 @@ END GROUP
 OUTPUT(stm32f1_irdecode.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_ranges   0x0000000000000000      0xd58
+.debug_ranges   0x0000000000000000      0xd40
  .debug_ranges  0x0000000000000000       0xd0 ./system/src/stm32f1-hal/stm32f1xx_hal.o
  .debug_ranges  0x00000000000000d0      0x110 ./system/src/stm32f1-hal/stm32f1xx_hal_cortex.o
  .debug_ranges  0x00000000000001e0       0xa0 ./system/src/stm32f1-hal/stm32f1xx_hal_rcc.o
@@ -4620,22 +4619,22 @@ LOAD linker stubs
  .debug_ranges  0x0000000000000368       0x18 ./system/src/cortexm/initialize-hardware.o
  .debug_ranges  0x0000000000000380       0x18 ./system/src/cmsis/system_stm32f1xx.o
  .debug_ranges  0x0000000000000398       0x10 ./system/src/cmsis/vectors_stm32f103x6.o
- .debug_ranges  0x00000000000003a8       0x60 ./src/cdcacm.o
- .debug_ranges  0x0000000000000408       0x20 ./src/initialize-hardware.o
- .debug_ranges  0x0000000000000428       0x28 ./src/stm32f1xx_hal_msp.o
- .debug_ranges  0x0000000000000450       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
- .debug_ranges  0x0000000000000478       0x40 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
- .debug_ranges  0x00000000000004b8      0x208 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
- .debug_ranges  0x00000000000006c0       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
- .debug_ranges  0x0000000000000720       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
- .debug_ranges  0x0000000000000730      0x260 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
- .debug_ranges  0x0000000000000990       0x80 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
- .debug_ranges  0x0000000000000a10       0x90 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
- .debug_ranges  0x0000000000000aa0      0x100 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
- .debug_ranges  0x0000000000000ba0       0x20 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
- .debug_ranges  0x0000000000000bc0       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
- .debug_ranges  0x0000000000000c10       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
- .debug_ranges  0x0000000000000c38      0x120 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
+ .debug_ranges  0x00000000000003a8       0x48 ./src/cdcacm.o
+ .debug_ranges  0x00000000000003f0       0x20 ./src/initialize-hardware.o
+ .debug_ranges  0x0000000000000410       0x28 ./src/stm32f1xx_hal_msp.o
+ .debug_ranges  0x0000000000000438       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio.o)
+ .debug_ranges  0x0000000000000460       0x40 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(gpio_common_all.o)
+ .debug_ranges  0x00000000000004a0      0x208 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc.o)
+ .debug_ranges  0x00000000000006a8       0x60 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(rcc_common_all.o)
+ .debug_ranges  0x0000000000000708       0x10 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer.o)
+ .debug_ranges  0x0000000000000718      0x260 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(timer_common_all.o)
+ .debug_ranges  0x0000000000000978       0x80 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb.o)
+ .debug_ranges  0x00000000000009f8       0x90 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_control.o)
+ .debug_ranges  0x0000000000000a88      0x100 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(usb_standard.o)
+ .debug_ranges  0x0000000000000b88       0x20 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_v1.o)
+ .debug_ranges  0x0000000000000ba8       0x50 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(nvic.o)
+ .debug_ranges  0x0000000000000bf8       0x28 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(flash_common_all.o)
+ .debug_ranges  0x0000000000000c20      0x120 /home/src/eclipse-workspace/stm32f1_irdecode/libopencm3/lib/libopencm3_stm32f1.a(st_usbfs_core.o)
 
 .debug_macro    0x0000000000000000    0x1f1ae
  .debug_macro   0x0000000000000000      0x2a6 ./system/src/stm32f1-hal/stm32f1xx_hal.o

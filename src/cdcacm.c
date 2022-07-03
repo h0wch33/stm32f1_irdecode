@@ -29,7 +29,7 @@
 #define LED_PIN GPIO13
 #define LED_RCC RCC_GPIOC
 
-#define CAPTURED_Q_SIZE 1024 //power of 2
+#define CAPTURED_Q_SIZE 2048 //power of 2
 
 static const struct usb_device_descriptor dev = {
 	.bLength = USB_DT_DEVICE_SIZE,
@@ -175,11 +175,12 @@ static const char *usb_strings[] = {
 uint8_t usbd_control_buffer[128];
 static usbd_device *usbd_dev;
 unsigned long long g_captured[CAPTURED_Q_SIZE];
-unsigned int g_captured_cnt = 0;
+//volatile unsigned long long last = 0;
 unsigned int tickcnt;
 unsigned int g_ovf = 0;
 int g_qstart = 0;
 int g_qend = 0;
+char g_first_time;
 static enum usbd_request_return_codes cdcacm_control_request(usbd_device *usbd_dev, struct usb_setup_data *req, uint8_t **buf,
 		uint16_t *len, void (**complete)(usbd_device *usbd_dev, struct usb_setup_data *req))
 {
@@ -257,184 +258,209 @@ void led_init()
 void tim1_init()
 {
 	tickcnt = 0;
+	g_captured[0] = 0;
+	g_qstart = 1;
+	g_qend = 1;
+	g_first_time = 1;
+
 	rcc_periph_clock_enable(RCC_TIM1);
 
-		/* Enable TIM1 interrupt. */
-		nvic_enable_irq(NVIC_TIM1_UP_IRQ);
-		nvic_enable_irq(NVIC_TIM1_CC_IRQ);
-		/* Reset TIM2 peripheral to defaults. */
-		rcc_periph_reset_pulse(RST_TIM1);
+	nvic_enable_irq(NVIC_TIM1_UP_IRQ);
+	nvic_enable_irq(NVIC_TIM1_CC_IRQ);
+	rcc_periph_reset_pulse(RST_TIM1);
 
-		/* Timer global mode:
-		 * - No divider
-		 * - Alignment edge
-		 * - Direction up
-		 * (These are actually default values after reset above, so this call
-		 * is strictly unnecessary, but demos the api for alternative settings)
-		 */
-		timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT,
-			TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+	timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT,
+		TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 
-		/*
-		 * Please take note that the clock source for STM32 timers
-		 * might not be the raw APB1/APB2 clocks.  In various conditions they
-		 * are doubled.  See the Reference Manual for full details!
-		 * In our case, TIM2 on APB1 is running at double frequency, so this
-		 * sets the prescaler to have the timer run at 5kHz
-		 */
-		//timer_set_prescaler(TIM1, ((rcc_apb1_frequency * 2) / 5000));
-		timer_set_prescaler(TIM1, (rcc_apb2_frequency / 1000000) -1 );
-		/* Disable preload. */
-		timer_disable_preload(TIM1);
-		timer_continuous_mode(TIM1);
+	timer_set_prescaler(TIM1, (rcc_apb2_frequency / 1000000) -1 );
+	timer_disable_preload(TIM1);
+	timer_continuous_mode(TIM1);
 
-		/* count full range, as we'll update compare value continuously */
-		timer_set_period(TIM1, 65535);
+	timer_set_period(TIM1, 65535);
 
-		/* Set the initual output compare value for OC1. */
-		//timer_set_oc_value(TIM2, TIM_OC1, frequency_sequence[frequency_sel++]);
+	//input capture
+	timer_ic_set_filter(TIM1, TIM_IC1, TIM_IC_CK_INT_N_2);
+	timer_ic_set_polarity(TIM1, TIM_IC1, TIM_IC_RISING);
+	timer_ic_set_prescaler(TIM1, TIM_IC1, TIM_IC_PSC_OFF);
+	timer_ic_set_input(TIM1, TIM_IC1, TIM_IC_IN_TI1);
+	timer_set_ti1_ch123_xor(TIM1);
+	timer_ic_enable(TIM1, TIM_IC1);
 
+	timer_ic_set_filter(TIM1, TIM_IC3, TIM_IC_CK_INT_N_2);
+	timer_ic_set_polarity(TIM1, TIM_IC3, TIM_IC_FALLING);//RISING);
+	timer_ic_set_prescaler(TIM1, TIM_IC3, TIM_IC_PSC_OFF);
+	timer_ic_set_input(TIM1, TIM_IC3, TIM_IC_IN_TI1);
+	timer_ic_enable(TIM1, TIM_IC3);
 
+	timer_enable_counter(TIM1);
 
-
-		//input capture
-		timer_ic_set_filter(TIM1, TIM_IC1, TIM_IC_CK_INT_N_8);
-		timer_ic_set_polarity(TIM1, TIM_IC1, TIM_IC_RISING);
-		timer_ic_set_prescaler(TIM1, TIM_IC1, TIM_IC_PSC_OFF);
-		timer_ic_set_input(TIM1, TIM_IC1, TIM_IC_IN_TI1);
-		timer_ic_enable(TIM1, TIM_IC1);
-
-
-
-
-
-
-
-
-
-		/* Counter enable. */
-		timer_enable_counter(TIM1);
-
-		/* Enable Channel 1 compare interrupt to recalculate compare values */
-		timer_enable_irq(TIM1, TIM_DIER_UIE | TIM_DIER_CC1IE);
+	timer_enable_irq(TIM1, TIM_DIER_UIE | TIM_DIER_CC1IE | TIM_DIER_CC3IE);
 }
 void TIM1_CC_IRQHandler(void)
 {
 	int end = g_qend;
-	if (timer_get_flag(TIM1, TIM_SR_CC1IF)) {
-		if(((end + 1) & (CAPTURED_Q_SIZE - 1)) == g_qstart) {
+	if (timer_get_flag(TIM1, TIM_SR_CC3OF)) {
+		g_ovf++;
+		timer_clear_flag(TIM1, TIM_SR_CC3OF);
+	}
+	if (timer_get_flag(TIM1, TIM_SR_CC1OF)) {
+		g_ovf++;
+		timer_clear_flag(TIM1, TIM_SR_CC1OF);
+	}
+
+	//falling edge
+	if (timer_get_flag(TIM1, TIM_SR_CC3IF)) {
+		if(((end + 1) & (CAPTURED_Q_SIZE - 1)) == g_qstart
+		 || ((end + 2) & (CAPTURED_Q_SIZE - 1)) == g_qstart
+		) {
 			g_ovf++;
-
 		} else {
-			if(g_captured_cnt & 1) {
-				g_captured[end] = 0x8000000000000000 | ((unsigned long long)tickcnt << 16) | ((unsigned short)TIM_CCR1(TIM1));
-			} else {
-				g_captured[end] = ((unsigned long long)tickcnt << 16) | ((unsigned short)TIM_CCR1(TIM1));
-			}
 
+			g_captured[end] = 0x8000000000000000 | ((unsigned long long)tickcnt << 16) | ((unsigned short)TIM_CCR3(TIM1));
 		}
-		g_captured_cnt++;
-		timer_clear_flag(TIM1, TIM_SR_CC1IF);
-		if(g_captured_cnt & 1) {
-			timer_ic_set_polarity(TIM1, TIM_IC1, TIM_IC_FALLING);
-		} else {
-			timer_ic_set_polarity(TIM1, TIM_IC1, TIM_IC_RISING);
-		}
-
 		end++;
 		end &= (CAPTURED_Q_SIZE - 1);
 		g_qend = end;
 
 	}
+	//rising edge
+	if (timer_get_flag(TIM1, TIM_SR_CC1IF)) {
+		if(((end + 1) & (CAPTURED_Q_SIZE - 1)) == g_qstart
+		 || ((end + 2) & (CAPTURED_Q_SIZE - 1)) == g_qstart
+		) {
+			g_ovf++;
+		} else {
+			g_captured[end] = ((unsigned long long)tickcnt << 16) | ((unsigned short)TIM_CCR1(TIM1));
+		}
+		end++;
+		end &= (CAPTURED_Q_SIZE - 1);
+		g_qend = end;
+
+	}
+
+
 }
-void TIM1_UP_IRQHandler(void)//tim1_isr(void)
+void TIM1_UP_IRQHandler(void)
 {
 	if (timer_get_flag(TIM1, TIM_SR_UIF)) {
 
-		/* Clear compare interrupt flag. */
 		timer_clear_flag(TIM1, TIM_SR_UIF);
 		tickcnt++;
-		/*
-		 * Get current timer value to calculate next
-		 * compare register value.
-		 */
-		uint16_t compare_time = timer_get_counter(TIM2);
+
+//		uint16_t compare_time = timer_get_counter(TIM2);
 		gpio_toggle(LED_PORT, LED_PIN);
-		if(usbd_dev) {
-			//usbd_ep_write_packet(usbd_dev, 0x82, "U\n", 2);
-		}
 
-#if 0
-		/* Calculate and set the next compare value. */
-		uint16_t frequency = frequency_sequence[frequency_sel++];
-		uint16_t new_time = compare_time + frequency;
-
-		timer_set_oc_value(TIM2, TIM_OC1, new_time);
-		if (frequency_sel == ARRAY_LEN(frequency_sequence)) {
-			frequency_sel = 0;
-		}
-#endif
-		/* Toggle LED to indicate compare event. */
-		//gpio_toggle(LED1_PORT, LED1_PIN);
 	}
 }
-volatile unsigned long long last = 0;
+
+void tim2_out_init()
+{
+	//pb10 tim2 ch3 pwm output for testing
+	rcc_periph_clock_enable(RCC_GPIOB);
+	rcc_periph_clock_enable(RCC_AFIO);
+	gpio_set_mode(GPIOB, GPIO_MODE_OUTPUT_2_MHZ,
+			GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO10);
+
+	gpio_primary_remap(AFIO_MAPR_SWJ_CFG_FULL_SWJ, AFIO_MAPR_TIM2_REMAP_FULL_REMAP);
+	rcc_periph_clock_enable(RCC_TIM2);
+	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_CENTER_1,
+	               TIM_CR1_DIR_UP);
+	timer_set_prescaler(TIM2, (rcc_apb2_frequency / 2000000) -1 );
+	//timer_set_prescaler(TIM2, 100);
+	timer_set_oc_mode(TIM2, TIM_OC3, TIM_OCM_PWM2);
+	timer_enable_oc_output(TIM2, TIM_OC3);
+	timer_enable_break_main_output(TIM2);
+	timer_set_oc_value(TIM2, TIM_OC3, 5);
+	timer_set_period(TIM2,200);// 4999);//9999);
+	timer_enable_counter(TIM2);
+
+
+}
 int main(void)
 {
 	volatile int i;
 
-	int start;
-	char buff[60];
+	int start,cnt;
+	char buff[100];
 
 	usbd_dev = NULL;
 	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ]);
 
 	rcc_periph_clock_enable(RCC_GPIOA);
 
-	//pa8 ir input pin from TL1838
+	tim2_out_init(); //can be commented out if not needed
+
+
 	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
 			GPIO_CNF_INPUT_PULL_UPDOWN, GPIO8);
+
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
+				GPIO_CNF_INPUT_PULL_UPDOWN, GPIO9);
+
+
+	//pa10 ir input pin from TL1838
+	gpio_set_mode(GPIOA, GPIO_MODE_INPUT,
+				GPIO_CNF_INPUT_PULL_UPDOWN, GPIO10);
+
+	gpio_set(GPIOA, GPIO8 | GPIO9 | GPIO10); //pull up
+
+
 	led_init();
 	tim1_init();
-		//while(1);
+
 
 	gpio_set_mode(GPIOA, GPIO_MODE_OUTPUT_50_MHZ,
 			GPIO_CNF_OUTPUT_OPENDRAIN, GPIO12);
 		gpio_clear(GPIOA, GPIO12);
-		for(i = 0; i < 5000000; i++);
+		for(i = 0; i < 2100000; i++);//about 500ms for 2100000
 		gpio_set(GPIOA, GPIO12);
-
-//	rcc_periph_clock_enable(RCC_GPIOC);
-
-//	gpio_set(GPIOC, GPIO11);
-//	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_2_MHZ,
-	//	      GPIO_CNF_OUTPUT_PUSHPULL, GPIO11);
 
 	usbd_dev = usbd_init(&st_usbfs_v1_usb_driver, &dev, &config, usb_strings, 3, usbd_control_buffer, sizeof(usbd_control_buffer));
 	usbd_register_set_config_callback(usbd_dev, cdcacm_set_config);
 
-	//for (i = 0; i < 0x800000; i++)
-		//__asm__("nop");
-	//gpio_clear(GPIOC, GPIO11);
 	i = 0;
 	while (1) {
 		usbd_poll(usbd_dev);
+		cnt = 0;
 		if(g_qstart != g_qend) {
+			//memset(buff, ' ', sizeof(buff));
 			start = g_qstart;
-			if(last == 0) {
-				last = g_captured[start];
+
+			if(g_first_time) {
+				sprintf(buff, "\r\n=====\r\n0 00 1 00000000 %u\r\n%d %02x %d %08x ",
+					((unsigned int)g_captured[start]) - ((unsigned int)g_captured[(start - 1) & (CAPTURED_Q_SIZE - 1)]),
+					g_ovf,
+					start & 0xff,
+					((((long long)g_captured[start]) > 0) ? 1 : 0),
+					(unsigned int)g_captured[start]
+
+				);
+
+				g_first_time = 0;
+			} else {
+				sprintf(buff, "%u\r\n%d %02x %d %08x ",
+					((unsigned int)g_captured[start]) - ((unsigned int)g_captured[(start - 1) & (CAPTURED_Q_SIZE - 1)]),
+					g_ovf,
+					start & 0xff,
+					((((long long)g_captured[start]) > 0) ? 1 : 0),
+					(unsigned int)g_captured[start]
+
+				);
+			}
+			//start++;
+			//start &= (CAPTURED_Q_SIZE - 1);
+			//if(cnt < 2 && start != g_qend) {
+				//cnt++;
+				//continue;
+			//}
+
+			if(usbd_ep_write_packet(usbd_dev, 0x82, buff, strlen(buff)) != 0) {
+				start++;
+				start &= (CAPTURED_Q_SIZE - 1);
+				g_qstart = start;
 			}
 
-			sprintf(buff, "%d %d %08x %u\r\n", g_ovf, ((((long long)g_captured[start]) < 0) ? 1 : 0), (unsigned int)g_captured[start], (unsigned int)(g_captured[start] - last));
-			last = g_captured[start];
-			start++;
-			start &= (CAPTURED_Q_SIZE - 1);
-			g_qstart = start;
-			usbd_ep_write_packet(usbd_dev, 0x82, buff, strlen(buff));
 		}
-//		if((i++ & 0x3fff) == 0) {
-		//	usbd_ep_write_packet(usbd_dev, 0x82, "Hello\r\n", 7);
-	//	}
 	}
 
 }
